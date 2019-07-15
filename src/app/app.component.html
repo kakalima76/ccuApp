@@ -1,0 +1,21 @@
+<div class="container-fluid">
+
+    <div class="alert alert-primary" role="alert">
+        <h3 class="text-center">MERCADORIAS</h3>
+    </div>
+
+
+    <ul name="grupos"  class="nav" *ngFor="let i of grupos">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="apresentacao" (click)="getParam(i.grupo)">{{i.total}} - {{i.grupo}}</a>
+        </li>
+    </ul>
+
+   
+        
+<div class="afastamentoSuperior border border-primary">
+    <router-outlet></router-outlet>
+</div>
+    
+
+</div>

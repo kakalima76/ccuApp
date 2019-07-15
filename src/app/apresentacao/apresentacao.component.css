@@ -1,0 +1,16 @@
+table {
+    width: 100%;
+    text-align: center;
+}
+
+th {
+    width: 33%;
+    color: blue;
+}
+
+td {
+    width: 33%;
+    text-align: left;
+    color: red;
+}
+  

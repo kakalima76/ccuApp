@@ -1,0 +1,49 @@
+<div class="progress-loader" [hidden]="loading">
+ 
+  <mat-progress-spinner [mode]="'indeterminate'">
+  </mat-progress-spinner>
+
+</div>
+
+<div *ngFor="let i of dados">
+ 
+  <mat-card class="example-card">
+    <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{i.grupo | uppercase}}</mat-card-title>
+      <mat-card-subtitle>{{i.obs}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="i.imagem">
+      <mat-card-content>
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.posicao}} </td>
+        </ng-container>
+          
+        <ng-container matColumnDef="lacre">
+          <th mat-header-cell *matHeaderCellDef> LACRE </th>
+          <td mat-cell *matCellDef="let element"> {{element.lacre}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="processo">
+          <th mat-header-cell *matHeaderCellDef> PROCESSO </th>
+          <td mat-cell *matCellDef="let element"> {{element.processo}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+     
+    </mat-card-content>
+  </mat-card>
+  
+</div>
+
+
+
+   
+
+
