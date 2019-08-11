@@ -1,16 +1,44 @@
 table {
     width: 100%;
     text-align: center;
+    border-color: white;
+    border-width: 0.1em;
 }
 
 th {
-    width: 33%;
-    color: blue;
+    width: 50%;
+    color: DarkSlateGrey;
+    text-align: center
 }
 
 td {
-    width: 33%;
-    text-align: left;
-    color: red;
+    width: 50%;
+    text-align: center;
+    color: white;
 }
   
+#imagem{
+    width: 50%;
+    height: auto;
+    margin-top: 5%;
+}
+
+#apresentacao{
+    margin-top: 2em;
+}
+
+.alinhamento{
+    text-align: center
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+  .bordaBraca{
+      border-width: 0.25em;
+      border-color: white;
+  }

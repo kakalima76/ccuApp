@@ -1,9 +1,10 @@
+
 export class Item {
     _id: number;
     lacre: string;
     processo: string;
-    foto: string;
-    obs: string;
+    path: string;
     grupo: string;
     posicao: number;
+    imagem: any;
 }

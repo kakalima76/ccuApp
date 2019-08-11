@@ -1,44 +1,38 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import {ApiService} from './services/api.service';
 import {Item} from 'src/app/models/item';
 import { filter } from 'minimatch';
 import { ItemService } from './services/item.service';
-import { Subscription } from 'rxjs';
-import { SpinnerService} from './services/spinner.service';
+import { Subscription, interval } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
  
+const minutos = 1
+const segundos = 18
+const milissegundos = 1000
+const time = (minutos*segundos*milissegundos)
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [ApiService]
+  providers: [ApiService],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit, OnDestroy{
   
 
-  constructor(private _api: ApiService, private _itemService: ItemService, private _spinnerService: SpinnerService) {}
+  constructor(private _api: ApiService, private _itemService: ItemService) {}
 
  
   dataSource: Item[];
   grupos: {grupo: any, total: any}[] = [];
   subscription: Subscription;
-  
-  getParam(value: string): void{
-    this._itemService.setItem(this.dataSource.filter(x => {
-      return x.grupo == value
-    }));
+  dados: Item[]
 
-  }
- 
-  ngOnInit(): void {
-  
-       
-    this._api.getItens()
-    .subscribe(res => {
+  gerarView(data: Item[]){
+    let pos: number = 0;
 
-        let pos: number = 0;
-
-        res.forEach(x => {
+       data.forEach(x => {
           x.posicao = parseInt(x.posicao.toString());
           
           
@@ -64,14 +58,40 @@ export class AppComponent implements OnInit, OnDestroy{
           }
         })
     
-        this.dataSource = res;
+        this.dataSource = data;
+  }
+  
+  getParam(value: string): void{
+    this._itemService.setItem(this.dataSource.filter(x => {
+      return x.grupo == value
+    }));
+
+  }
+ 
+  ngOnInit(): void {
+
+      this._api.getItens().subscribe(res => {
+          this.gerarView(res)
+      })
+
+      interval(time)
+      .pipe(
+      flatMap(() =>{
+        return this._api.getItens();
+      })
+      ).subscribe(res => {
+        this.dados = []
+        this.dataSource = []
+        this.grupos = []
+        this.dados = res
+        this.gerarView(this.dados)
 
 
-       
+      
     }, err => {
       console.log(err);
-    });
-
+    })
+              
   }
 
   title = 'app';
